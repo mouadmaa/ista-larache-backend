@@ -8,10 +8,4 @@ export const userType = gql`
     role: String!
     createdAt: String!
   }
-
-  input RegisterUserInput {
-    name: String!
-    email: String!
-    password: String!
-  }
 `
