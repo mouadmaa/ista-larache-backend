@@ -1,8 +1,6 @@
-import { IResolvers } from 'apollo-server'
-
 import { login, register, me, users } from './userResolvers'
 
-export const resolvers: IResolvers = {
+export const resolvers = {
   Query: {
     me,
     users,

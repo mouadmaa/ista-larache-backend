@@ -1,5 +1,5 @@
 import { User } from '@prisma/client'
-import { gql } from 'apollo-server'
+import gql from 'graphql-tag'
 
 export interface AuthPayload {
   token: String,

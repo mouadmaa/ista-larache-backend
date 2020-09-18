@@ -1,18 +1,22 @@
 import dotenv from 'dotenv'
-import { ApolloServer } from 'apollo-server'
+import { GraphQLServer } from 'graphql-yoga'
 
 import { context } from './context'
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
+import { permissions } from './lib/permissions'
 
 dotenv.config()
 
-const server = new ApolloServer({
+const server = new GraphQLServer({
   typeDefs,
   resolvers,
   context,
+  middlewares: [
+    permissions
+  ],
 })
 
-server.listen().then(({ url }) => {
-  console.log(`> 🚀  Server ready at ${url}`)
-})
+server.start(
+  () => console.log('> Server is running on http://localhost:4000')
+)

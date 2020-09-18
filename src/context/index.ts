@@ -1,17 +1,12 @@
-import { IncomingMessage } from 'http'
 import { PrismaClient } from '@prisma/client'
+import { ContextParameters } from 'graphql-yoga/dist/types'
 
 const prisma = new PrismaClient()
 
-export interface MyContext {
-  prisma: PrismaClient
-  req: IncomingMessage
-}
+export type MyContext = {
+  db: PrismaClient
+} & ContextParameters
 
-interface RequestContext {
-  req: IncomingMessage
-}
-
-export const context = ({ req }: RequestContext): MyContext => ({
-  req, prisma,
+export const context = (request: ContextParameters): MyContext => ({
+  ...request, db: prisma,
 })
