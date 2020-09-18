@@ -1,9 +1,10 @@
 import { IResolvers } from 'apollo-server'
 
-import { login, register, users } from './userResolvers'
+import { login, register, me, users } from './userResolvers'
 
 export const resolvers: IResolvers = {
   Query: {
+    me,
     users,
   },
   Mutation: {
