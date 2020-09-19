@@ -6,6 +6,7 @@
     "larache",
     "middlewares",
     "postgres",
-    "postgresql"
+    "postgresql",
+    "resave"
   ]
 }

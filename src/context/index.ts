@@ -1,12 +1,17 @@
-import { PrismaClient } from '@prisma/client'
-import { ContextParameters } from 'graphql-yoga/dist/types'
+import { PrismaClient, User } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export type MyContext = {
+export interface MyContext {
+  request: Request & { session: Session }
+  response: Response
   db: PrismaClient
-} & ContextParameters
+}
 
-export const context = (request: ContextParameters): MyContext => ({
-  ...request, db: prisma,
+interface Session extends Express.Session {
+  user: User | null
+}
+
+export const context = ({ request, response }: any): MyContext => ({
+  request, response, db: prisma,
 })
