@@ -1,4 +1,4 @@
-import { login, register, me, users } from './userResolvers'
+import { me, users, register, login, logout } from './userResolvers'
 
 export const resolvers = {
   Query: {
@@ -8,5 +8,6 @@ export const resolvers = {
   Mutation: {
     register,
     login,
+    logout,
   },
 }

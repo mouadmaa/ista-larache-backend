@@ -2,6 +2,7 @@ import { User, UserCreateInput, UserWhereInput } from '@prisma/client'
 import { hash, verify } from 'argon2'
 
 import { MyContext } from '../context'
+import { COOKIE_NAME } from '../constants'
 
 export const users = (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => {
   return db.user.findMany()
@@ -31,4 +32,14 @@ export const login = async (_parent: any, { email, password }: UserWhereInput, {
 
   request.session.user = user
   return user
+}
+
+export const logout = async (_parent: any, _args: any, { request, response }: MyContext): Promise<Boolean> => {
+  return new Promise(resolve =>
+    request.session.destroy(error => {
+      response.clearCookie(COOKIE_NAME)
+      if (error) resolve(false)
+      resolve(true)
+    })
+  )
 }
