@@ -3,8 +3,8 @@ import { GraphQLServer } from 'graphql-yoga'
 import { context } from './context'
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
-import { permissions } from './lib/permissions'
-import { sessionMiddleware } from './middlewares/session'
+import { sessions } from './middlewares/sessions'
+import { permissions } from './middlewares/permissions'
 
 const server = new GraphQLServer({
   typeDefs,
@@ -12,11 +12,11 @@ const server = new GraphQLServer({
   context,
   middlewares: [
     permissions
-  ],
+  ]
 })
 
 server.express.use(
-  sessionMiddleware
+  sessions
 )
 
 server.start(

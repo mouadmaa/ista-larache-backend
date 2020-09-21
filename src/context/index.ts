@@ -3,16 +3,20 @@ import { Request, Response } from 'express'
 
 const prisma = new PrismaClient()
 
-export interface MyContext {
-  request: Request & { session: Session }
-  response: Response
-  db: PrismaClient
-}
-
 interface Session extends Express.Session {
   user: User | null
 }
 
-export const context = ({ request, response }: any): MyContext => ({
-  request, response, db: prisma,
+interface ContextParameter {
+  request: Request & { session: Session }
+  response: Response
+}
+
+export interface MyContext extends ContextParameter {
+  db: PrismaClient
+  user: User | null
+}
+
+export const context = ({ request, response }: ContextParameter): MyContext => ({
+  request, response, db: prisma, user: request.session.user
 })

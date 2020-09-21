@@ -6,6 +6,5 @@ export const userType = gql`
     name: String!
     email: String!
     role: String!
-    createdAt: String!
   }
 `

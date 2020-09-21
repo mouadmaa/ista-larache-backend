@@ -10,7 +10,7 @@ dotenv.config()
 const RedisStore = connectRedis(session)
 const redisClient = redis.createClient()
 
-export const sessionMiddleware = session({
+export const sessions = session({
   name: COOKIE_NAME,
   store: new RedisStore({
     client: redisClient,
