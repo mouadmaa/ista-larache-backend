@@ -1,6 +1,6 @@
 import { rule, shield } from 'graphql-shield'
 
-import { MyContext } from 'src/context'
+import { MyContext } from '../context'
 
 const isAuthenticated = rule({ cache: 'contextual' })(
   async (_parent: any, _args: any, { user }: MyContext) => {
@@ -14,16 +14,16 @@ const isAdmin = rule({ cache: 'contextual' })(
   },
 )
 
-const isTeacher = rule({ cache: 'contextual' })(
-  async (_parent: any, _args: any, { user }: MyContext) => {
-    return user?.role === 'TEACHER'
-  },
-)
+// const isTeacher = rule({ cache: 'contextual' })(
+//   async (_parent: any, _args: any, { user }: MyContext) => {
+//     return user?.role === 'TEACHER'
+//   },
+// )
 
 export const permissions = shield(
   {
     Query: {
-      users: isTeacher,
+      users: isAuthenticated,
       me: isAuthenticated,
     },
     Mutation: {

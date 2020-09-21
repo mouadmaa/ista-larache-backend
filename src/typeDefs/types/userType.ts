@@ -5,6 +5,11 @@ export const userType = gql`
     id: String!
     name: String!
     email: String!
-    role: String!
+    role: Role!
+  }
+
+  enum Role {
+    ADMIN
+    TEACHER
   }
 `
