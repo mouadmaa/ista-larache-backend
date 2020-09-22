@@ -9,13 +9,13 @@ export const formationType = gql`
   }
 
   enum Level {
-    Specialist_Technician
-    Technician
+    Technicien_Specialise
+    Technicien
     Qualification
-    Specialization
-    Professional_Baccalaureate
-    College_Courses
-    Formation_Qualification
+    Specialisation
+    Bac_Professionnel
+    Parcours_Collegial
+    Formation_Qualifiante
   }
 
   input CreateFormationInput {

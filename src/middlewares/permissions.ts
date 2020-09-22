@@ -29,6 +29,9 @@ export const permissions = shield(
     Mutation: {
       register: isAdmin,
       logout: isAuthenticated,
+      createFormation: isAdmin,
+      updateFormation: isAdmin,
+      deleteFormation: isAdmin,
     },
   },
   {
