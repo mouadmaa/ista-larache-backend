@@ -17,4 +17,20 @@ export const formationType = gql`
     College_Courses
     Formation_Qualification
   }
+
+  input CreateFormationInput {
+    name: String!
+    descUrl: String!
+    level: Level!
+  }
+
+  input FormationUpdateInput {
+    name: String
+    descUrl: String
+    level: Level
+  }
+
+  input FormationWhereUniqueInput {
+    id: String!
+  }
 `

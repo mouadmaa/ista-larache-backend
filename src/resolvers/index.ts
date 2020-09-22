@@ -1,5 +1,5 @@
 import { me, users, register, login, logout } from './userResolvers'
-import { formations } from './formationResolvers'
+import { formations, createFormation, updateFormation, deleteFormation } from './formationResolvers'
 
 export const resolvers = {
   Query: {
@@ -11,5 +11,8 @@ export const resolvers = {
     register,
     login,
     logout,
+    createFormation,
+    updateFormation,
+    deleteFormation,
   },
 }
