@@ -6,6 +6,8 @@ export const formationType = gql`
     name: String!
     descUrl: String!
     level: Level!
+    modules: [Module!]!
+    classes: [Class!]!
   }
 
   enum Level {

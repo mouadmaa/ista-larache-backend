@@ -4,8 +4,8 @@ import { hash, verify } from 'argon2'
 import { MyContext } from '../context'
 import { COOKIE_NAME } from '../constants'
 
-export const users = (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => db.user.findMany()
 export const me = (_parent: any, _args: any, { user }: MyContext): User | null => user
+export const users = (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => db.user.findMany()
 
 export const register = async (_parent: any, { name, email, password }: UserCreateInput, { request, db }: MyContext): Promise<User> => {
   const hashedPassword = await hash(password)
