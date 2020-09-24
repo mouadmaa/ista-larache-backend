@@ -8,8 +8,13 @@ export const mutation = gql`
     logout: Boolean
 
     # Formation
-    createFormation(data: CreateFormationInput!): Formation!
+    createFormation(data: FormationCreateInput!): Formation!
     updateFormation(where: FormationWhereUniqueInput!, data: FormationUpdateInput!): Formation!
     deleteFormation(where: FormationWhereUniqueInput!): Formation!
+
+    # Module
+    createModule(data: ModuleCreateInput!): Module!
+    updateModule(where: ModuleWhereUniqueInput!, data: ModuleUpdateInput!): Module!
+    deleteModule(where: ModuleWhereUniqueInput!): Module!
   }
 `

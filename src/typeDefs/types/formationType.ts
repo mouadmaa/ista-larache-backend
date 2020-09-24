@@ -18,7 +18,7 @@ export const formationType = gql`
     Formation_Qualifiante
   }
 
-  input CreateFormationInput {
+  input FormationCreateInput {
     name: String!
     descUrl: String!
     level: Level!

@@ -8,4 +8,24 @@ export const moduleType = gql`
     classes: [Class!]!
     formation: Formation!
   }
+
+  input ModuleCreateInput {
+    number: Int!
+    name: String!
+    formation: FormationConnectModuleInput!
+  }
+
+  input FormationConnectModuleInput {
+    connect: FormationWhereUniqueInput!
+  }
+
+  input ModuleUpdateInput {
+    number: Int
+    name: String
+    formation: FormationConnectModuleInput
+  }
+
+  input ModuleWhereUniqueInput {
+    id: String!
+  }
 `

@@ -1,6 +1,6 @@
 import { me, users, register, login, logout } from './userResolvers'
 import { formations, createFormation, updateFormation, deleteFormation } from './formationResolvers'
-import { modules } from './moduleResolvers'
+import { modules, createModule, updateModule, deleteModule } from './moduleResolvers'
 import { classes } from './classResolvers'
 
 export const resolvers = {
@@ -18,5 +18,8 @@ export const resolvers = {
     createFormation,
     updateFormation,
     deleteFormation,
+    createModule,
+    updateModule,
+    deleteModule,
   },
 }
