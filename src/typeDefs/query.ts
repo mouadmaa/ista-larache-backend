@@ -5,5 +5,7 @@ export const query = gql`
     me: User
     users: [User!]!
     formations: [Formation!]!
+    modules: [Module!]!
+    classes: [Class!]!
   }
 `
