@@ -1,7 +1,7 @@
 import { me, users, register, login, logout } from './userResolvers'
 import { formation, formations, createFormation, updateFormation, deleteFormation, formationModules, formationClasses } from './formationResolvers'
 import { modules, createModule, updateModule, deleteModule, moduleClasses, moduleFormation } from './moduleResolvers'
-import { classes } from './classResolvers'
+import { classes, createClass, formationClass, teacherClass, modulesClass, updateClass, deleteClass } from './classResolvers'
 
 export const resolvers = {
   Query: {
@@ -22,6 +22,9 @@ export const resolvers = {
     createModule,
     updateModule,
     deleteModule,
+    createClass,
+    updateClass,
+    deleteClass,
   },
   Formation: {
     modules: formationModules,
@@ -31,4 +34,9 @@ export const resolvers = {
     classes: moduleClasses,
     formation: moduleFormation,
   },
+  Class: {
+    formation: formationClass,
+    teacher: teacherClass,
+    modules: modulesClass,
+  }
 }

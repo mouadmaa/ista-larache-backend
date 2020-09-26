@@ -11,7 +11,7 @@ export const updateModule = (_parent: any, args: ModuleUpdateArgs, { db }: MyCon
 export const deleteModule = (_parent: any, args: ModuleDeleteArgs, { db }: MyContext): Promise<Module> => db.module.delete(args)
 
 export const moduleClasses = (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class[]> => {
-  return db.module.findOne({ where: { id: parent.id } }).classes()
+  return db.module.findOne({ where: { id: parent.id } }).formation().classes()
 }
 export const moduleFormation = (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Formation | null> => {
   return db.module.findOne({ where: { id: parent.id } }).formation()

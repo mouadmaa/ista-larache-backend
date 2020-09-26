@@ -12,4 +12,8 @@ export const userType = gql`
     ADMIN
     TEACHER
   }
+
+  input UserWhereUniqueInput {
+    id: String!
+  }
 `

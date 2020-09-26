@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -32,6 +32,7 @@ model Class {
   id          String    @id @default(cuid())
   year        Year      @default(Premiere)
   group       Group     @default(A)
+  modules     Module[]
   formation   Formation @relation(fields: [formationId], references: [id])
   formationId String
   teacher     User      @relation(fields: [teacherId], references: [id])
@@ -44,10 +45,20 @@ model Module {
   id          String    @id @default(cuid())
   number      Int
   name        String
+  classes     Class[]
   formation   Formation @relation(fields: [formationId], references: [id])
   formationId String
 
-  @@unique([number, name, formationId])
+  @@unique([number, formationId])
+}
+
+model ModulesOnClasses {
+  class     Class  @relation(fields: [classId], references: [id])
+  classId   String
+  module    Module @relation(fields: [moduleId], references: [id])
+  moduleId  String
+
+  @@id([classId, moduleId])
 }
 
 enum Role {

@@ -18,4 +18,30 @@ export const classType = gql`
   enum Group {
     A B C D E
   }
+
+  input ClassCreateInput {
+    year: Year!
+    group: Group!
+    formation: FormationConnectClassInput!
+    teacher: UserConnectClassInput!
+  }
+
+  input ClassUpdateInput {
+    year: Year
+    group: Group
+    formation: FormationConnectClassInput
+    teacher: UserConnectClassInput
+  }
+
+  input FormationConnectClassInput {
+    connect: FormationWhereUniqueInput!
+  }
+
+  input UserConnectClassInput {
+    connect: UserWhereUniqueInput!
+  }
+
+  input ClassWhereUniqueInput {
+    id: String!
+  }
 `

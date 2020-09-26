@@ -16,5 +16,10 @@ export const mutation = gql`
     createModule(data: ModuleCreateInput!): Module!
     updateModule(where: ModuleWhereUniqueInput!, data: ModuleUpdateInput!): Module!
     deleteModule(where: ModuleWhereUniqueInput!): Module!
+
+    # Class
+    createClass(data: ClassCreateInput!): Class!
+    updateClass(where: ClassWhereUniqueInput!, data: ClassUpdateInput!): Class!
+    deleteClass(where: ClassWhereUniqueInput!): Class!
   }
 `
