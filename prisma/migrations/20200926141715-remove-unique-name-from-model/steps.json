@@ -1,0 +1,37 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "tag": "CreateDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "Module",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[number, formationId]"
+            }
+          ]
+        },
+        "directive": "unique"
+      }
+    },
+    {
+      "tag": "DeleteDirective",
+      "location": {
+        "path": {
+          "tag": "Model",
+          "model": "Module",
+          "arguments": [
+            {
+              "name": "",
+              "value": "[number, name, formationId]"
+            }
+          ]
+        },
+        "directive": "unique"
+      }
+    }
+  ]
+}

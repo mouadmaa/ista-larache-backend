@@ -3,12 +3,11 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["transactionApi"]
 }
 
 model User {
@@ -49,7 +48,6 @@ model Module {
   formationId String
 
   @@unique([number, formationId])
-  @@unique([name, formationId])
 }
 
 enum Role {
