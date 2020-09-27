@@ -26,5 +26,7 @@ server.start(
       credentials: true,
     },
   },
-  ({ port }) => console.log(`> Server is running on http://localhost:${port}`)
+  ({ port }) => console.log(
+    `> Server is running on http://localhost:${port}`
+  )
 )

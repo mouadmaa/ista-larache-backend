@@ -15,5 +15,11 @@ export const query = gql`
 
     # Class
     classes: [Class!]!
+
+    # Student
+    students: [Student!]!
+
+    # Note
+    notes: [Note!]!
   }
 `

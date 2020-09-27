@@ -2,6 +2,8 @@ import { me, users, register, login, logout } from './userResolvers'
 import { formation, formations, createFormation, updateFormation, deleteFormation, formationModules, formationClasses } from './formationResolvers'
 import { modules, createModule, updateModule, deleteModule, moduleClasses, moduleFormation } from './moduleResolvers'
 import { classes, createClass, formationClass, teacherClass, modulesClass, updateClass, deleteClass } from './classResolvers'
+import { students } from './studentResolvers'
+import { notes } from './noteResolvers'
 
 export const resolvers = {
   Query: {
@@ -11,6 +13,8 @@ export const resolvers = {
     formations,
     modules,
     classes,
+    students,
+    notes,
   },
   Mutation: {
     register,
