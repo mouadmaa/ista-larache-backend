@@ -3,7 +3,7 @@ import { formation, formations, createFormation, updateFormation, deleteFormatio
 import { modules, createModule, updateModule, deleteModule, moduleClasses, moduleFormation, moduleNotes } from './moduleResolvers'
 import { classes, createClass, formationClass, teacherClass, modulesClass, updateClass, deleteClass } from './classResolvers'
 import { students, createStudent, updateStudent, deleteStudent, studentNotes, studentClass } from './studentResolvers'
-import { notes } from './noteResolvers'
+import { noteQueries, noteMutations, note } from './noteResolvers'
 
 export const resolvers = {
   Query: {
@@ -14,7 +14,7 @@ export const resolvers = {
     modules,
     classes,
     students,
-    notes,
+    ...noteQueries,
   },
   Mutation: {
     register,
@@ -32,6 +32,7 @@ export const resolvers = {
     createStudent,
     updateStudent,
     deleteStudent,
+    ...noteMutations,
   },
   Formation: {
     modules: formationModules,
@@ -51,4 +52,5 @@ export const resolvers = {
     notes: studentNotes,
     class: studentClass,
   },
+  Note: { ...note },
 }

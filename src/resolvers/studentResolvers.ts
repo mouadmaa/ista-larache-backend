@@ -8,10 +8,6 @@ export const updateStudent = (_parent: any, args: StudentUpdateArgs, { db }: MyC
 export const deleteStudent = (_parent: any, args: StudentDeleteArgs, { db }: MyContext): Promise<Student> => db.student.delete(args)
 
 export const studentNotes = (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
-  db.$use(async (params, next) => {
-    console.log(params)
-    return next(params)
-  })
   return db.student.findOne({ where: { id: parent.id } }).notes()
 }
 export const studentClass = (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class | null> => {

@@ -26,5 +26,10 @@ export const mutation = gql`
     createStudent(data: StudentCreateInput!): Student!
     updateStudent(where: StudentWhereUniqueInput!, data: StudentUpdateInput!): Student!
     deleteStudent(where: StudentWhereUniqueInput!): Student!
+
+    # Note
+    createNote(data: NoteCreateInput!): Note!
+    updateNote(where: NoteWhereUniqueInput!, data: NoteUpdateInput!): Note!
+    deleteNote(where: NoteWhereUniqueInput!): Note!
   }
 `

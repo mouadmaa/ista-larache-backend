@@ -37,7 +37,7 @@ export const studentType = gql`
   }
 
   input ClassConnectStudentInput {
-    connect: StudentWhereUniqueInput!
+    connect: ClassWhereUniqueInput!
   }
 
   input StudentWhereUniqueInput {
