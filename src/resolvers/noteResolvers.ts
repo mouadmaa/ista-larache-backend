@@ -12,7 +12,7 @@ export const noteMutations = {
   deleteNote: (_parent: any, args: NoteDeleteArgs, { db }: MyContext): Promise<Note> => db.note.delete(args),
 }
 
-export const note = {
+export const noteRes = {
   student: (parent: NoteWhereUniqueInput, _args: any, { db }: MyContext): Promise<Student | null> => {
     return db.note.findOne({ where: { id: parent.id } }).student()
   },
