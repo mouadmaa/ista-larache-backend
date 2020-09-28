@@ -1,15 +1,3 @@
 # Prisma Migrate lockfile v1
 
-20200918115901-init
-20200918143416-add-user-model
-20200921215201-add-formation-model
-20200921234703-add-formation-model
-20200922120740-rename-values-of-enum-level
-20200924130625-add-module-and-class-models
-20200924181617-add-classes-and-modules-properties-to-formation-model
-20200926122352-use-little-to-teacher-property
-20200926133127
-20200926133232-remove-modulesonclasses-model
-20200926141715-remove-unique-name-from-model
-20200927133251-add-unique-name-to-formation
-20200927183626-add-student-and-note-models
+20200928153828-init

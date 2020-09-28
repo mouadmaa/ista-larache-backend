@@ -13,7 +13,6 @@ generator client {
 
 model User {
   id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
   name      String
   email     String   @unique
   password  String
@@ -22,7 +21,7 @@ model User {
 
 model Student {
   id          String   @id @default(cuid())
-  name        String
+  fullName    String
   cef         String?  @unique
   cin         String?  @unique
   password    String
@@ -59,6 +58,7 @@ model Module {
   id          String    @id @default(cuid())
   number      Int
   name        String
+  notes       Note[]
   formation   Formation @relation(fields: [formationId], references: [id])
   formationId String
 
