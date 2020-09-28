@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 export const studentType = gql`
   type Student {
     id: String!
-    name: String!
+    fullName: String!
     cef: String
     cin: String
     password: String!
@@ -15,7 +15,7 @@ export const studentType = gql`
   }
 
   input StudentCreateInput {
-    name: String!
+    fullName: String!
     cef: String
     cin: String
     password: String!
@@ -26,7 +26,7 @@ export const studentType = gql`
   }
 
   input StudentUpdateInput {
-    name: String
+    fullName: String
     cef: String
     cin: String
     password: String

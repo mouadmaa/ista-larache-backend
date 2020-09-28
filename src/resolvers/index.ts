@@ -1,6 +1,6 @@
 import { me, users, register, login, logout } from './userResolvers'
 import { formation, formations, createFormation, updateFormation, deleteFormation, formationModules, formationClasses } from './formationResolvers'
-import { modules, createModule, updateModule, deleteModule, moduleClasses, moduleFormation } from './moduleResolvers'
+import { modules, createModule, updateModule, deleteModule, moduleClasses, moduleFormation, moduleNotes } from './moduleResolvers'
 import { classes, createClass, formationClass, teacherClass, modulesClass, updateClass, deleteClass } from './classResolvers'
 import { students, createStudent, updateStudent, deleteStudent, studentNotes, studentClass } from './studentResolvers'
 import { notes } from './noteResolvers'
@@ -38,8 +38,9 @@ export const resolvers = {
     classes: formationClasses,
   },
   Module: {
-    classes: moduleClasses,
     formation: moduleFormation,
+    classes: moduleClasses,
+    notes: moduleNotes,
   },
   Class: {
     formation: formationClass,

@@ -6,6 +6,7 @@ export const moduleType = gql`
     number: Int!
     name: String!
     classes: [Class!]!
+    notes: [Note!]!
     formation: Formation!
   }
 

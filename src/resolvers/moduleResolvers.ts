@@ -1,6 +1,6 @@
 import {
   Class, Formation, Module, ModuleCreateArgs, ModuleDeleteArgs,
-  ModuleUpdateArgs, ModuleWhereUniqueInput
+  ModuleUpdateArgs, ModuleWhereUniqueInput, Note
 } from '@prisma/client'
 
 import { MyContext } from '../context'
@@ -12,6 +12,9 @@ export const deleteModule = (_parent: any, args: ModuleDeleteArgs, { db }: MyCon
 
 export const moduleClasses = (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class[]> => {
   return db.module.findOne({ where: { id: parent.id } }).formation().classes()
+}
+export const moduleNotes = (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
+  return db.module.findOne({ where: { id: parent.id } }).notes()
 }
 export const moduleFormation = (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Formation | null> => {
   return db.module.findOne({ where: { id: parent.id } }).formation()
