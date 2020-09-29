@@ -5,6 +5,7 @@ export const classType = gql`
     id: String!
     year: Year!
     group: Group!
+    students: [Student!]!
     modules: [Module!]!
     formation: Formation!
     teacher: User!

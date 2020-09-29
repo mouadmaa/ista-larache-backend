@@ -14,6 +14,7 @@ export const query = gql`
     modules: [Module!]!
 
     # Class
+    class(where: ClassWhereUniqueInput!): Class
     classes: [Class!]!
 
     # Student
