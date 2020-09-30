@@ -18,6 +18,7 @@ export const query = gql`
     classes: [Class!]!
 
     # Student
+    student(where: StudentWhereUniqueInput!): Student
     students: [Student!]!
 
     # Note

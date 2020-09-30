@@ -1,8 +1,9 @@
-import { Class, Note, Student, StudentCreateArgs, StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput } from '@prisma/client'
+import { Class, FindOneStudentArgs, Note, Student, StudentCreateArgs, StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput } from '@prisma/client'
 
 import { MyContext } from 'src/context'
 
 export const studentQueries = {
+  student: (_parent: any, args: FindOneStudentArgs, { db }: MyContext): Promise<Student | null> => db.student.findOne(args),
   students: (_parent: any, _args: any, { db }: MyContext): Promise<Student[]> => db.student.findMany(),
 }
 
