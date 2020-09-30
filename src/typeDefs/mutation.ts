@@ -5,7 +5,7 @@ export const mutation = gql`
     # user
     register(name: String!, email: String!, password: String!): User
     login(email: String!, password: String!): User
-    logout: Boolean
+    logout: Boolean!
 
     # Formation
     createFormation(data: FormationCreateInput!): Formation!

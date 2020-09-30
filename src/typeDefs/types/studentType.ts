@@ -7,7 +7,6 @@ export const studentType = gql`
     cef: String
     cin: String
     password: String!
-    dateBirth: String!
     notes: [Note!]!
     finalNote1: Float
     finalNote2: Float
@@ -19,7 +18,6 @@ export const studentType = gql`
     cef: String
     cin: String
     password: String!
-    dateBirth: String!
     finalNote1: Float
     finalNote2: Float
     class: ClassConnectStudentInput!
@@ -30,7 +28,6 @@ export const studentType = gql`
     cef: String
     cin: String
     password: String
-    dateBirth: String
     finalNote1: Float
     finalNote2: Float
     class: ClassConnectStudentInput

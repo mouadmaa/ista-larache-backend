@@ -12,8 +12,8 @@ export const classType = gql`
   }
 
   enum Year {
-    Premiere
-    Deuxieme
+    First
+    Second
   }
 
   enum Group {

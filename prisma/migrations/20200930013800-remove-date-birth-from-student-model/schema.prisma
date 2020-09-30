@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -43,7 +43,7 @@ model Formation {
 
 model Class {
   id          String    @id @default(cuid())
-  year        Year      @default(First)
+  year        Year      @default(Premiere)
   group       Group     @default(A)
   students    Student[]
   formation   Formation @relation(fields: [formationId], references: [id])
@@ -96,8 +96,8 @@ enum Level {
 }
 
 enum Year {
-  First
-  Second
+  Premiere
+  Deuxieme
 }
 
 enum Group {
