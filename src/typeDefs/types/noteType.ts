@@ -25,6 +25,7 @@ export const noteType = gql`
     note2: Float
     note3: Float
     efm: Float
+    module: ModuleConnectNoteInput
   }
 
   input StudentConnectNoteInput {
