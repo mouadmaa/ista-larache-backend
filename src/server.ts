@@ -1,5 +1,8 @@
 import { GraphQLServer } from 'graphql-yoga'
 
+import dotenv from 'dotenv'
+dotenv.config()
+
 import { context } from './context'
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
@@ -12,7 +15,7 @@ const server = new GraphQLServer({
   context,
   middlewares: [
     permissions
-  ]
+  ],
 })
 
 server.express.use(
@@ -24,6 +27,9 @@ server.start(
     cors: {
       origin: true,
       credentials: true,
+    },
+    bodyParserOptions: {
+      limit: '3mb'
     },
   },
   ({ port }) => console.log(

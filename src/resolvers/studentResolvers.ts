@@ -1,4 +1,7 @@
-import { Class, FindOneStudentArgs, Note, Student, StudentCreateArgs, StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput } from '@prisma/client'
+import {
+  Class, FindOneStudentArgs, Note, Student, StudentCreateArgs,
+  StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput
+} from '@prisma/client'
 
 import { MyContext } from 'src/context'
 

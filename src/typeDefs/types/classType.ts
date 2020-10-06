@@ -5,6 +5,7 @@ export const classType = gql`
     id: String!
     year: Year!
     group: Group!
+    timetable: String
     students: [Student!]!
     modules: [Module!]!
     formation: Formation!
@@ -30,6 +31,7 @@ export const classType = gql`
   input ClassUpdateInput {
     year: Year
     group: Group
+    timetable: String
     formation: FormationConnectClassInput
     teacher: UserConnectClassInput
   }

@@ -3,6 +3,7 @@
     "Deuxieme",
     "asynciterable",
     "backend",
+    "cloudinary",
     "esnext",
     "ista",
     "ista larache backend",
@@ -10,7 +11,8 @@
     "middlewares",
     "postgres",
     "postgresql",
-    "resave"
+    "resave",
+    "uploader"
   ],
   "cSpell.ignoreWords": [
     "bac",

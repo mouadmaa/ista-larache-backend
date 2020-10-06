@@ -19,7 +19,7 @@ export const mutation = gql`
 
     # Class
     createClass(data: ClassCreateInput!): Class!
-    updateClass(where: ClassWhereUniqueInput!, data: ClassUpdateInput!): Class!
+    updateClass(where: ClassWhereUniqueInput!, data: ClassUpdateInput!, file: String): Class!
     deleteClass(where: ClassWhereUniqueInput!): Class!
 
     # Student

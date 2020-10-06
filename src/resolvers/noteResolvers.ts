@@ -1,4 +1,7 @@
-import { Module, Note, NoteCreateArgs, NoteDeleteArgs, NoteUpdateArgs, NoteWhereUniqueInput, Student } from '@prisma/client'
+import {
+  Module, Note, NoteCreateArgs, NoteDeleteArgs, NoteUpdateArgs,
+  NoteWhereUniqueInput, Student
+} from '@prisma/client'
 
 import { MyContext } from 'src/context'
 

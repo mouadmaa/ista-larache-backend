@@ -1,5 +1,6 @@
 import {
-  Class, FindOneFormationArgs, Formation, FormationCreateArgs, FormationDeleteArgs, FormationUpdateArgs, FormationWhereUniqueInput, Module
+  Class, FindOneFormationArgs, Formation, FormationCreateArgs, FormationDeleteArgs,
+  FormationUpdateArgs, FormationWhereUniqueInput, Module
 } from '@prisma/client'
 
 import { MyContext } from '../context'
@@ -12,13 +13,7 @@ export const formationQueries = {
 export const formationMutations = {
   createFormation: (_parent: any, args: FormationCreateArgs, { db }: MyContext): Promise<Formation> => db.formation.create(args),
   updateFormation: (_parent: any, args: FormationUpdateArgs, { db }: MyContext): Promise<Formation> => db.formation.update(args),
-  deleteFormation: (_parent: any, args: FormationDeleteArgs, { db }: MyContext): Promise<Formation> => {
-    const deleteModules = db.module.deleteMany({ where: { formationId: args.where.id } })
-    const deleteClasses = db.class.deleteMany({ where: { formationId: args.where.id } })
-    const deleteFormation = db.formation.delete(args)
-    db.$transaction([deleteModules, deleteClasses, deleteFormation])
-    return deleteFormation
-  },
+  deleteFormation: (_parent: any, args: FormationDeleteArgs, { db }: MyContext): Promise<Formation> => db.formation.delete(args),
 }
 
 export const formationRes = {

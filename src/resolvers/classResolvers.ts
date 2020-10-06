@@ -1,6 +1,15 @@
-import { Class, ClassCreateArgs, ClassDeleteArgs, ClassUpdateArgs, ClassWhereUniqueInput, FindOneClassArgs, Formation, Module, Student, User } from '@prisma/client'
+import {
+  Class, ClassCreateArgs, ClassDeleteArgs, ClassUpdateArgs, ClassWhereUniqueInput,
+  FindOneClassArgs, Formation, Module, Student, User
+} from '@prisma/client'
 
 import { MyContext } from '../context'
+import { Cloudinary } from '../services/cloudinary'
+import { CLOUDINARY_FOLDER_NAME } from '../constants'
+
+interface ClassUpdateArgsWithFile extends ClassUpdateArgs {
+  file?: string
+}
 
 export const classQueries = {
   class: (_parent: any, args: FindOneClassArgs, { db }: MyContext): Promise<Class | null> => db.class.findOne(args),
@@ -8,9 +17,25 @@ export const classQueries = {
 }
 
 export const classMutations = {
-  createClass: (_parent: any, args: ClassCreateArgs, { db }: MyContext): Promise<Class> => db.class.create(args),
-  updateClass: (_parent: any, args: ClassUpdateArgs, { db }: MyContext): Promise<Class> => db.class.update(args),
-  deleteClass: (_parent: any, args: ClassDeleteArgs, { db }: MyContext): Promise<Class> => db.class.delete(args),
+  createClass: async (_parent: any, args: ClassCreateArgs, { db }: MyContext): Promise<Class> => db.class.create(args),
+  updateClass: async (_parent: any, args: ClassUpdateArgsWithFile, { db }: MyContext): Promise<Class> => {
+    if (args.file && !args.data.timetable) {
+      args.data.timetable = await Cloudinary.uploadImage(args.file)
+    } else if (args.file && args.data.timetable) {
+      Cloudinary.removeImage(getPublicId(args.data.timetable as string))
+      args.data.timetable = await Cloudinary.uploadImage(args.file)
+    } else if (!args.file && args.data.timetable) {
+      Cloudinary.removeImage(getPublicId(args.data.timetable as string))
+      args.data.timetable = null
+    }
+    delete args.file
+    return db.class.update(args as ClassUpdateArgs)
+  },
+  deleteClass: async (_parent: any, args: ClassDeleteArgs, { db }: MyContext): Promise<Class> => {
+    const deletedClass = await db.class.delete(args)
+    Cloudinary.removeImage(getPublicId(deletedClass.timetable as string))
+    return deletedClass
+  }
 }
 
 export const classRes = {
@@ -26,4 +51,8 @@ export const classRes = {
   modules: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<Module[]> => {
     return db.class.findOne({ where: { id: parent.id } }).formation().modules()
   },
+}
+
+const getPublicId = (timetable?: string) => {
+  return `${CLOUDINARY_FOLDER_NAME}/${timetable?.split('/')[8].split('.')[0]}`
 }
