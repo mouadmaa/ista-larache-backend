@@ -6,6 +6,7 @@ import { moduleType } from './moduleType'
 import { classType } from './classType'
 import { studentType } from './studentType'
 import { noteType } from './noteType'
+import { activityType } from './activityType'
 
 export const types = gql`
   ${userType}
@@ -14,4 +15,5 @@ export const types = gql`
   ${classType}
   ${studentType}
   ${noteType}
+  ${activityType}
 `

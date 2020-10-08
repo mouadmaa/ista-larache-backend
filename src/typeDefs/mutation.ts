@@ -31,5 +31,8 @@ export const mutation = gql`
     createNote(data: NoteCreateInput!): Note!
     updateNote(where: NoteWhereUniqueInput!, data: NoteUpdateInput!): Note!
     deleteNote(where: NoteWhereUniqueInput!): Note!
+
+    # Activity
+    createActivity(data: ActivityCreateInput!): Activity!
   }
 `

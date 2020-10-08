@@ -23,5 +23,8 @@ export const query = gql`
 
     # Note
     notes: [Note!]!
+
+    # Activity
+    activities: [Activity!]!
   }
 `

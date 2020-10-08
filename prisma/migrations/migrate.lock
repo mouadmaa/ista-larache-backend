@@ -6,3 +6,4 @@
 20200930013800-remove-date-birth-from-student-model
 20200930021213-rename-enum-year
 20201004212043-add-timetable-to-class
+20201008114931-add-activity-model

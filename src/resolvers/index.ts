@@ -4,6 +4,7 @@ import { moduleQueries, moduleMutations, moduleRes } from './moduleResolvers'
 import { classQueries, classMutations, classRes } from './classResolvers'
 import { studentQueries, studentMutations, studentRes } from './studentResolvers'
 import { noteQueries, noteMutations, noteRes } from './noteResolvers'
+import { activityMutations, activityQueries } from './activityResolvers'
 
 export const resolvers = {
   Query: {
@@ -13,6 +14,7 @@ export const resolvers = {
     ...classQueries,
     ...studentQueries,
     ...noteQueries,
+    ...activityQueries,
   },
   Mutation: {
     ...userMutations,
@@ -21,6 +23,7 @@ export const resolvers = {
     ...formationMutations,
     ...studentMutations,
     ...noteMutations,
+    ...activityMutations,
   },
   Formation: { ...formationRes },
   Module: { ...moduleRes },

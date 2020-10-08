@@ -29,7 +29,7 @@ server.start(
       credentials: true,
     },
     bodyParserOptions: {
-      limit: '3mb'
+      limit: '3mb',
     },
   },
   ({ port }) => console.log(
