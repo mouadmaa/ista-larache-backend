@@ -1,7 +1,7 @@
 import { PrismaClient, User } from '@prisma/client'
 import { Request, Response } from 'express'
 
-export const prisma = new PrismaClient({
+const prisma = new PrismaClient({
   // log: ['query', 'info', 'warn'],
   errorFormat: 'minimal',
 })

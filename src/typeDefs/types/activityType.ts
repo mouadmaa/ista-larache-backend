@@ -12,7 +12,6 @@ export const activityType = gql`
   }
 
   input ActivityCreateInput {
-    image: String!
     title: String!
     desc:  String!
     date: String!

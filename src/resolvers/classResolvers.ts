@@ -7,9 +7,7 @@ import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
 import { CLOUDINARY_FOLDER_NAME } from '../constants'
 
-interface ClassUpdateArgsWithFile extends ClassUpdateArgs {
-  file?: string
-}
+interface ClassUpdateArgsWithFile extends ClassUpdateArgs { file?: string }
 
 export const classQueries = {
   class: (_parent: any, args: FindOneClassArgs, { db }: MyContext): Promise<Class | null> => db.class.findOne(args),
