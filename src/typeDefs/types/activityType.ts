@@ -11,6 +11,11 @@ export const activityType = gql`
     slug: String!
   }
 
+  type Activities {
+    activities: [Activity!]!
+    count: Int!
+  }
+
   input ActivityCreateInput {
     title: String!
     desc:  String!
@@ -28,5 +33,16 @@ export const activityType = gql`
 
   input ActivityWhereUniqueInput {
     id: String!
+  }
+
+  input ActivityWhereInput {
+    id: String
+    title: String
+    slug: String
+  }
+
+  input ActivityOrderByInput {
+    title: Sort
+    date: Sort
   }
 `

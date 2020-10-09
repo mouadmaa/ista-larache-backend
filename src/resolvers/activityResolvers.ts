@@ -1,15 +1,24 @@
-import { Activity, ActivityCreateArgs, ActivityDeleteArgs, ActivityUpdateArgs } from '@prisma/client'
+import {
+  Activity, ActivityCreateArgs, ActivityDeleteArgs, ActivityUpdateArgs, FindManyActivityArgs, FindOneActivityArgs
+} from '@prisma/client'
 import slugify from 'slugify'
 
 import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
 import { CLOUDINARY_FOLDER_NAME } from '../constants'
 
+interface Activities {
+  activities: Activity[]
+  count: number
+}
 interface ActivityCreateArgsWithFile extends ActivityCreateArgs { file?: string }
 interface ActivityUpdateArgsWithFile extends ActivityUpdateArgs { file?: string }
 
 export const activityQueries = {
-  activities: (_parent: any, _args: any, { db }: MyContext): Promise<Activity[]> => db.activity.findMany(),
+  activity: (_parent: any, args: FindOneActivityArgs, { db }: MyContext): Promise<Activity | null> => db.activity.findOne(args),
+  activities: async (_parent: any, args: FindManyActivityArgs, { db }: MyContext): Promise<Activities> => ({
+    activities: await db.activity.findMany(args), count: await db.activity.count()
+  }),
 }
 
 export const activityMutations = {

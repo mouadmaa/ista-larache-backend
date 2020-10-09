@@ -25,6 +25,7 @@ export const query = gql`
     notes: [Note!]!
 
     # Activity
-    activities: [Activity!]!
+    activity(where: ActivityWhereInput!): Activity
+    activities(skip: Int, take: Int, orderBy: ActivityOrderByInput): Activities
   }
 `

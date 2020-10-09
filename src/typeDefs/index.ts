@@ -8,4 +8,9 @@ export const typeDefs = gql`
   ${query}
   ${mutation}
   ${types}
+
+  enum Sort {
+    asc
+    desc
+  }
 `
