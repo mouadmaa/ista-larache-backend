@@ -24,7 +24,6 @@ export const permissions = shield(
   {
     Query: {
       users: isAuthenticated,
-      me: isAuthenticated,
     },
     Mutation: {
       register: isAdmin,
