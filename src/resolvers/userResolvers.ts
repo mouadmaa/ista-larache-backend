@@ -1,23 +1,22 @@
-import { User, UserCreateInput, UserWhereInput } from '@prisma/client'
+import { User, UserCreateInput, UserDeleteArgs, UserWhereInput } from '@prisma/client'
 import { hash, verify } from 'argon2'
 
 import { MyContext } from '../context'
 import { COOKIE_NAME } from '../constants'
 
 export const userQueries = {
-  me: (_parent: any, _args: any, { user }: MyContext): User | null => user,
+  me: (_parent: any, _args: any, { request }: MyContext): User | null => request.session.user,
   users: (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => db.user.findMany(),
 }
 
 export const userMutations = {
-  register: async (_parent: any, { name, email, password }: UserCreateInput, { request, db }: MyContext): Promise<User> => {
+  register: async (_parent: any, { name, email, password }: UserCreateInput, { db }: MyContext): Promise<User> => {
     const hashedPassword = await hash(password)
 
     const user = await db.user.create({
       data: { name, email, password: hashedPassword, },
     })
 
-    request.session.user = user
     return user
   },
   login: async (_parent: any, { email, password }: UserWhereInput, { request, db }: MyContext): Promise<User> => {
@@ -39,4 +38,5 @@ export const userMutations = {
       })
     )
   },
+  deleteUser: (_parent: any, args: UserDeleteArgs, { db }: MyContext): Promise<User> => db.user.delete(args),
 }

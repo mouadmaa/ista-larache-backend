@@ -17,9 +17,8 @@ interface ContextParameter {
 
 export interface MyContext extends ContextParameter {
   db: PrismaClient
-  user: User | null
 }
 
 export const context = ({ request, response }: ContextParameter): MyContext => ({
-  request, response, db: prisma, user: request.session.user
+  request, response, db: prisma,
 })

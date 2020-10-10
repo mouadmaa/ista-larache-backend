@@ -8,6 +8,9 @@ import { MyContext } from '../context'
 export const formationQueries = {
   formation: (_parent: any, args: FindOneFormationArgs, { db }: MyContext): Promise<Formation | null> => db.formation.findOne(args),
   formations: (_parent: any, _args: any, { db }: MyContext): Promise<Formation[]> => db.formation.findMany(),
+  teacherFormations: (_parent: any, _args: any, { db, request }: MyContext): Promise<Formation[]> => {
+    return db.formation.findMany({ where: { classes: { some: { teacherId: request.session.user?.id } } } })
+  }
 }
 
 export const formationMutations = {

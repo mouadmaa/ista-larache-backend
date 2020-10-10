@@ -9,6 +9,7 @@ export const query = gql`
     # Formation
     formation(where: FormationWhereUniqueInput!): Formation
     formations: [Formation!]!
+    teacherFormations: [Formation!]!
 
     # Module
     modules: [Module!]!
