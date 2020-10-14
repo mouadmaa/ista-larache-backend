@@ -3,7 +3,7 @@ import {
   NoteWhereUniqueInput, Student
 } from '@prisma/client'
 
-import { MyContext } from 'src/context'
+import { MyContext } from '../context'
 
 export const noteQueries = {
   notes: (_parent: any, _args: any, { db }: MyContext): Promise<Note[]> => db.note.findMany(),
