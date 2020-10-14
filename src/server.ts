@@ -1,4 +1,5 @@
 import { GraphQLServer } from 'graphql-yoga'
+import depthLimit from 'graphql-depth-limit'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -31,6 +32,9 @@ server.start(
     bodyParserOptions: {
       limit: '3mb',
     },
+    validationRules: [
+      depthLimit(2)
+    ]
   },
   ({ port }) => console.log(
     `> Server is running on http://localhost:${port}`

@@ -1,5 +1,5 @@
 import {
-  Class, FindOneStudentArgs, Note, Student, StudentCreateArgs,
+  FindOneStudentArgs, Note, Student, StudentCreateArgs,
   StudentDeleteArgs, StudentUpdateArgs, StudentWhereInput, StudentWhereUniqueInput
 } from '@prisma/client'
 
@@ -25,8 +25,5 @@ export const studentMutations = {
 export const studentRes = {
   notes: (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
     return db.student.findOne({ where: { id: parent.id } }).notes()
-  },
-  class: (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class | null> => {
-    return db.student.findOne({ where: { id: parent.id } }).class()
   },
 }

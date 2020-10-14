@@ -10,7 +10,6 @@ export const studentType = gql`
     notes: [Note!]!
     finalNote1: Float
     finalNote2: Float
-    class: Class!
   }
 
   input StudentCreateInput {
