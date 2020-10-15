@@ -16,13 +16,16 @@ export const moduleMutations = {
 }
 
 export const moduleRes = {
-  classes: (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class[]> => {
+  classes: (parent: ModuleWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Class[]> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
     return db.module.findOne({ where: { id: parent.id } }).formation().classes()
   },
-  notes: (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
+  notes: (parent: ModuleWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Note[]> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
     return db.module.findOne({ where: { id: parent.id } }).notes()
   },
-  formation: (parent: ModuleWhereUniqueInput, _args: any, { db }: MyContext): Promise<Formation | null> => {
+  formation: (parent: ModuleWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Formation | null> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
     return db.module.findOne({ where: { id: parent.id } }).formation()
   },
 }

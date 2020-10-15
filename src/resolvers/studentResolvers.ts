@@ -31,4 +31,8 @@ export const studentRes = {
   notes: (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
     return db.student.findOne({ where: { id: parent.id } }).notes()
   },
+  class: (parent: StudentWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Note[]> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
+    return db.student.findOne({ where: { id: parent.id } }).notes()
+  },
 }

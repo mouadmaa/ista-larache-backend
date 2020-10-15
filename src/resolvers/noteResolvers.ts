@@ -16,7 +16,8 @@ export const noteMutations = {
 }
 
 export const noteRes = {
-  student: (parent: NoteWhereUniqueInput, _args: any, { db }: MyContext): Promise<Student | null> => {
+  student: (parent: NoteWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Student | null> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
     return db.note.findOne({ where: { id: parent.id } }).student()
   },
   module: (parent: NoteWhereUniqueInput, _args: any, { db }: MyContext): Promise<Module | null> => {

@@ -20,7 +20,8 @@ export const formationMutations = {
 }
 
 export const formationRes = {
-  modules: (parent: FormationWhereUniqueInput, _args: any, { db }: MyContext): Promise<Module[]> => {
+  modules: (parent: FormationWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Module[]> => {
+    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
     return db.formation.findOne({ where: { id: parent.id } }).modules()
   },
   classes: (parent: FormationWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class[]> => {
