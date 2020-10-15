@@ -33,7 +33,7 @@ server.start(
       limit: '3mb',
     },
     validationRules: [
-      depthLimit(2)
+      depthLimit(3)
     ]
   },
   ({ port }) => console.log(
