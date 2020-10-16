@@ -13,6 +13,13 @@ export const studentType = gql`
     class: Class!
   }
 
+  type PublicStudent {
+    id: String!
+    fullName: String!
+    cef: String
+    cin: String
+  }
+
   input StudentCreateInput {
     fullName: String!
     cef: String
@@ -39,5 +46,9 @@ export const studentType = gql`
 
   input StudentWhereUniqueInput {
     id: String!
+  }
+
+  input PublicStudentWhereClassInput {
+    classId: String!
   }
 `

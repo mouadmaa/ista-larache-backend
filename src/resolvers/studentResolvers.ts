@@ -1,5 +1,5 @@
 import {
-  FindOneStudentArgs, Note, Student, StudentCreateArgs,
+  FindOneStudentArgs, Note, Student, StudentCreateArgs, FindManyStudentArgs,
   StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput
 } from '@prisma/client'
 
@@ -13,6 +13,7 @@ interface StudentNotesArgs {
 export const studentQueries = {
   student: (_parent: any, args: FindOneStudentArgs, { db }: MyContext): Promise<Student | null> => db.student.findOne(args),
   students: (_parent: any, _args: any, { db }: MyContext): Promise<Student[]> => db.student.findMany(),
+  publicStudents: (_parent: any, args: FindManyStudentArgs, { db }: MyContext): Promise<Student[]> => db.student.findMany(args),
 }
 
 export const studentMutations = {

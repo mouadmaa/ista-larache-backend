@@ -21,6 +21,7 @@ export const query = gql`
     # Student
     student(where: StudentWhereUniqueInput!): Student
     students: [Student!]!
+    publicStudents(where: PublicStudentWhereClassInput!): [PublicStudent!]!
 
     # Note
     notes: [Note!]!
