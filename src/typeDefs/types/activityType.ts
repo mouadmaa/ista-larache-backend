@@ -11,8 +11,7 @@ export const activityType = gql`
     slug: String!
   }
 
-  type Activities {
-    activities: [Activity!]!
+  type ActivitiesMeta {
     count: Int!
   }
 

@@ -28,6 +28,7 @@ export const query = gql`
 
     # Activity
     activity(where: ActivityWhereInput!): Activity
-    activities(skip: Int, take: Int, orderBy: ActivityOrderByInput): Activities
+    activities(skip: Int, take: Int, orderBy: ActivityOrderByInput): [Activity!]!
+    _activitiesMeta: ActivitiesMeta!
   }
 `

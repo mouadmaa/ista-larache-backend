@@ -7,18 +7,14 @@ import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
 import { CLOUDINARY_FOLDER_NAME } from '../constants'
 
-interface Activities {
-  activities: Activity[]
-  count: number
-}
+interface ActivityMeta { count: number }
 interface ActivityCreateArgsWithFile extends ActivityCreateArgs { file?: string }
 interface ActivityUpdateArgsWithFile extends ActivityUpdateArgs { file?: string }
 
 export const activityQueries = {
   activity: (_parent: any, args: FindOneActivityArgs, { db }: MyContext): Promise<Activity | null> => db.activity.findOne(args),
-  activities: async (_parent: any, args: FindManyActivityArgs, { db }: MyContext): Promise<Activities> => ({
-    activities: await db.activity.findMany(args), count: await db.activity.count()
-  }),
+  activities: (_parent: any, args: FindManyActivityArgs, { db }: MyContext): Promise<Activity[]> => db.activity.findMany(args),
+  _activitiesMeta: async (_parent: any, _args: any, { db }: MyContext): Promise<ActivityMeta> => ({ count: await db.activity.count() }),
 }
 
 export const activityMutations = {
