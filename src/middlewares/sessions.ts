@@ -1,18 +1,9 @@
-import redis from 'redis'
 import session from 'express-session'
-import connectRedis from 'connect-redis'
 
 import { COOKIE_NAME, __prod__ } from '../constants'
 
-const RedisStore = connectRedis(session)
-const redisClient = redis.createClient()
-
 export const sessions = session({
   name: COOKIE_NAME,
-  store: new RedisStore({
-    client: redisClient,
-    disableTouch: true,
-  }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
     httpOnly: true,
@@ -20,6 +11,6 @@ export const sessions = session({
     secure: __prod__,
   },
   secret: process.env.SESSION_SECRET!,
-  saveUninitialized: false,
+  saveUninitialized: true,
   resave: false,
 })
