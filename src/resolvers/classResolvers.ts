@@ -37,20 +37,16 @@ export const classMutations = {
 }
 
 export const classRes = {
-  formation: (parent: ClassWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Formation | null> => {
-    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
+  formation: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<Formation | null> => {
     return db.class.findOne({ where: { id: parent.id } }).formation()
   },
-  teacher: (parent: ClassWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<User | null> => {
-    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
+  teacher: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<User | null> => {
     return db.class.findOne({ where: { id: parent.id } }).teacher()
   },
-  students: (parent: ClassWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Student[]> => {
-    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
+  students: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<Student[]> => {
     return db.class.findOne({ where: { id: parent.id } }).students()
   },
-  modules: (parent: ClassWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Module[]> => {
-    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
+  modules: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<Module[]> => {
     return db.class.findOne({ where: { id: parent.id } }).formation().modules()
   },
 }

@@ -1,6 +1,6 @@
 import {
   FindOneStudentArgs, Note, Student, StudentCreateArgs, FindManyStudentArgs,
-  StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput
+  StudentDeleteArgs, StudentUpdateArgs, StudentWhereUniqueInput, Class
 } from '@prisma/client'
 
 import { MyContext } from '../context'
@@ -32,8 +32,7 @@ export const studentRes = {
   notes: (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Note[]> => {
     return db.student.findOne({ where: { id: parent.id } }).notes()
   },
-  class: (parent: StudentWhereUniqueInput, _args: any, { db, request }: MyContext): Promise<Note[]> => {
-    if (!Boolean(request.session.user)) throw new Error('Not Authorised!')
-    return db.student.findOne({ where: { id: parent.id } }).notes()
+  class: (parent: StudentWhereUniqueInput, _args: any, { db }: MyContext): Promise<Class | null> => {
+    return db.student.findOne({ where: { id: parent.id } }).class()
   },
 }
