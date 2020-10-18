@@ -24,6 +24,10 @@ server.express.use(
   sessions
 )
 
+if (__prod__) {
+  server.express.enable('trust proxy')
+}
+
 server.start(
   {
     cors: {
