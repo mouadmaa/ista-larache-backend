@@ -24,15 +24,15 @@ server.express.use(
   sessions
 )
 
-// if (__prod__) {
-//   server.express.enable('trust proxy')
+if (__prod__) {
+  server.express.enable('trust proxy')
 
-//   const enforce = require('express-sslify')
-//   server.express.use(enforce.HTTPS({ trustProtoHeader: true }))
+  const enforce = require('express-sslify')
+  server.express.use(enforce.HTTPS({ trustProtoHeader: true }))
 
-//   const helmet = require('helmet')
-//   server.express.use(helmet())
-// }
+  const helmet = require('helmet')
+  server.express.use(helmet())
+}
 
 server.start(
   {
