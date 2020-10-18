@@ -1,9 +1,3 @@
 # Prisma Migrate lockfile v1
 
-20200928153828-init
-20200929153542-add-student-table-to-class-model
-20200929153857-add-student-table-to-class-model
-20200930013800-remove-date-birth-from-student-model
-20200930021213-rename-enum-year
-20201004212043-add-timetable-to-class
-20201008114931-add-activity-model
+20201018161701-init

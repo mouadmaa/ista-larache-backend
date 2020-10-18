@@ -4,6 +4,7 @@ import depthLimit from 'graphql-depth-limit'
 import dotenv from 'dotenv'
 dotenv.config()
 
+import { __prod__ } from './constants'
 import { context } from './context'
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
@@ -37,6 +38,7 @@ server.start(
     ]
   },
   ({ port }) => console.log(
-    `> Server is running on http://localhost:${port}`
+    __prod__ ? `> 🚀🚀🚀 Server is up running 🔥`
+      : `> 🚀🚀🚀 Server is up running on http://localhost:${port} 🔥`
   )
 )
