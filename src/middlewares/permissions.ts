@@ -1,16 +1,17 @@
 import { rule, shield } from 'graphql-shield'
 
 import { MyContext } from '../context'
+import { getUser } from '../utils/getUser'
 
 const isAuthenticated = rule({ cache: 'contextual' })(
-  async (_parent: any, _args: any, { request }: MyContext) => {
-    return Boolean(request.session.user)
+  (_parent: any, _args: any, { request }: MyContext) => {
+    return Boolean(getUser(request))
   },
 )
 
 const isAdmin = rule({ cache: 'contextual' })(
-  async (_parent: any, _args: any, { request }: MyContext) => {
-    return request.session.user?.role === 'ADMIN'
+  (_parent: any, _args: any, { request }: MyContext) => {
+    return getUser(request)?.role === 'ADMIN'
   },
 )
 

@@ -1,4 +1,4 @@
-import { PrismaClient, User } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import { Request, Response } from 'express'
 
 const prisma = new PrismaClient({
@@ -6,12 +6,8 @@ const prisma = new PrismaClient({
   errorFormat: 'minimal',
 })
 
-interface Session extends Express.Session {
-  user: User | null
-}
-
 interface ContextParameter {
-  request: Request & { session: Session }
+  request: Request
   response: Response
 }
 

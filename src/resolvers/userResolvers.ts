@@ -1,11 +1,13 @@
 import { User, UserCreateInput, UserDeleteArgs, UserWhereInput } from '@prisma/client'
 import { hash, verify } from 'argon2'
+import { sign } from 'jsonwebtoken'
 
+import { __prod__ } from '../constants'
 import { MyContext } from '../context'
-import { COOKIE_NAME } from '../constants'
+import { getUser } from '../utils/getUser'
 
 export const userQueries = {
-  me: (_parent: any, _args: any, { request }: MyContext): User | null => request.session.user,
+  me: (_parent: any, _args: any, { request }: MyContext): User | null => getUser(request),
   users: (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => db.user.findMany(),
 }
 
@@ -14,29 +16,33 @@ export const userMutations = {
     const hashedPassword = await hash(password)
 
     const user = await db.user.create({
-      data: { name, email, password: hashedPassword, },
+      data: { name, email, password: hashedPassword, }
     })
 
     return user
   },
-  login: async (_parent: any, { email, password }: UserWhereInput, { request, db }: MyContext): Promise<User> => {
+  login: async (_parent: any, { email, password }: UserWhereInput, { response, db }: MyContext): Promise<User> => {
     const user = await db.user.findOne({ where: { email: email as string } })
     if (!user) throw new Error('email or password not valid')
 
     const validPassword = await verify(user.password, password as string)
     if (!validPassword) throw new Error('email or password not valid')
 
-    request.session.user = user
+    const expiresIn = 1000 * 60 * 60 * 24 * 365 * 10
+    const token = sign({ user }, process.env.JWT_SECRET!, { expiresIn })
+
+    response.cookie('token', token, {
+      expires: new Date(Date.now() + expiresIn),
+      secure: __prod__,
+      httpOnly: true,
+      sameSite: 'lax',
+    })
+
     return user
   },
-  logout: async (_parent: any, _args: any, { request, response }: MyContext): Promise<Boolean> => {
-    return new Promise(resolve =>
-      request.session.destroy(error => {
-        response.clearCookie(COOKIE_NAME)
-        if (error) resolve(false)
-        resolve(true)
-      })
-    )
+  logout: (_parent: any, _args: any, { response }: MyContext): Boolean => {
+    response.cookie('token', '', { expires: new Date(0), httpOnly: true })
+    return true
   },
   deleteUser: (_parent: any, args: UserDeleteArgs, { db }: MyContext): Promise<User> => db.user.delete(args),
 }

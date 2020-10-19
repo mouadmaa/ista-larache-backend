@@ -1,5 +1,6 @@
 import { GraphQLServer } from 'graphql-yoga'
 import depthLimit from 'graphql-depth-limit'
+import cookieParser from 'cookie-parser'
 
 import dotenv from 'dotenv'
 dotenv.config()
@@ -8,7 +9,6 @@ import { __prod__ } from './constants'
 import { context } from './context'
 import { typeDefs } from './typeDefs'
 import { resolvers } from './resolvers'
-import { sessions } from './middlewares/sessions'
 import { permissions } from './middlewares/permissions'
 
 const server = new GraphQLServer({
@@ -21,7 +21,7 @@ const server = new GraphQLServer({
 })
 
 server.express.use(
-  sessions
+  cookieParser()
 )
 
 if (__prod__) {
