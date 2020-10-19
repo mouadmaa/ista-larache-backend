@@ -29,7 +29,14 @@ export const userMutations = {
     if (!validPassword) throw new Error('email or password not valid')
 
     const expiresIn = 1000 * 60 * 60 * 24 * 365 * 10
-    const token = sign({ user }, process.env.JWT_SECRET!, { expiresIn })
+    const token = sign({
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    }, process.env.JWT_SECRET!, { expiresIn })
 
     response.cookie('token', token, {
       expires: new Date(Date.now() + expiresIn),
