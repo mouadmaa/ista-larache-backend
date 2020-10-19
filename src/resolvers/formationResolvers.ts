@@ -26,12 +26,13 @@ export const formationRes = {
     return db.formation.findOne({ where: { id: parent.id } }).modules()
   },
   classes: async (parent: FormationWhereUniqueInput, _args: any, { request, db }: MyContext): Promise<Class[]> => {
-    const user = getUser(request)
-    if (user?.role === 'ADMIN') {
-      return db.formation.findOne({ where: { id: parent.id } }).classes()
-    } else {
-      const formation = await db.formation.findOne({ where: { id: parent.id } })
-      return db.class.findMany({ where: { formationId: formation?.id, teacherId: user?.id } })
+    if (request.cookies.token) {
+      const user = getUser(request)
+      if (user?.role === 'TEACHER') {
+        const formation = await db.formation.findOne({ where: { id: parent.id } })
+        return db.class.findMany({ where: { formationId: formation?.id, teacherId: user?.id } })
+      }
     }
+    return db.formation.findOne({ where: { id: parent.id } }).classes()
   },
 }

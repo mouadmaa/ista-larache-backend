@@ -42,7 +42,7 @@ export const userMutations = {
       expires: new Date(Date.now() + expiresIn),
       secure: __prod__,
       httpOnly: true,
-      sameSite: 'none',
+      sameSite: __prod__ ? 'none' : 'lax',
     })
 
     return user

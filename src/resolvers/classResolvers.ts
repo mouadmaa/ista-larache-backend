@@ -5,7 +5,7 @@ import {
 
 import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
-import { CLOUDINARY_FOLDER_NAME } from '../constants'
+import { getPublicId } from '../utils/getPublicId'
 
 interface ClassUpdateArgsWithFile extends ClassUpdateArgs { file?: string }
 
@@ -49,8 +49,4 @@ export const classRes = {
   modules: (parent: ClassWhereUniqueInput, _args: any, { db }: MyContext): Promise<Module[]> => {
     return db.class.findOne({ where: { id: parent.id } }).formation().modules()
   },
-}
-
-const getPublicId = (timetable?: string) => {
-  return `${CLOUDINARY_FOLDER_NAME}/${timetable?.split('/')[8].split('.')[0]}`
 }

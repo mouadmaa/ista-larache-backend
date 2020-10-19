@@ -5,7 +5,7 @@ import slugify from 'slugify'
 
 import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
-import { CLOUDINARY_FOLDER_NAME } from '../constants'
+import { getPublicId } from '../utils/getPublicId'
 
 interface ActivityMeta { count: number }
 interface ActivityCreateArgsWithFile extends ActivityCreateArgs { file?: string }
@@ -38,8 +38,4 @@ export const activityMutations = {
     Cloudinary.removeImage(getPublicId(deletedActivity.image))
     return deletedActivity
   },
-}
-
-const getPublicId = (image: string) => {
-  return `${CLOUDINARY_FOLDER_NAME}/${image?.split('/')[8].split('.')[0]}`
 }
