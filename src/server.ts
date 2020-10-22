@@ -21,20 +21,8 @@ const server = new GraphQLServer({
   ],
 })
 
-var whitelist = [
-  process.env.FRONTEND_URL,
-  process.env.ADMIN_URL,
-  process.env.BACKEND_URL
-]
-
 server.express.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
+  origin: true,
   credentials: true,
 }))
 
