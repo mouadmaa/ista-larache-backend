@@ -5,7 +5,7 @@ import {
 
 import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
-import { getPublicId } from '../utils/getPublicId'
+import { getImagePublicId } from '../utils/getImagePublicId'
 
 interface ClassUpdateArgsWithFile extends ClassUpdateArgs { file?: string }
 
@@ -20,10 +20,10 @@ export const classMutations = {
     if (args.file && !args.data.timetable) {
       args.data.timetable = await Cloudinary.uploadImage(args.file)
     } else if (args.file && args.data.timetable) {
-      Cloudinary.removeImage(getPublicId(args.data.timetable as string))
+      Cloudinary.removeImage(getImagePublicId(args.data.timetable as string))
       args.data.timetable = await Cloudinary.uploadImage(args.file)
     } else if (!args.file && args.data.timetable) {
-      Cloudinary.removeImage(getPublicId(args.data.timetable as string))
+      Cloudinary.removeImage(getImagePublicId(args.data.timetable as string))
       args.data.timetable = null
     }
     delete args.file
@@ -31,7 +31,7 @@ export const classMutations = {
   },
   deleteClass: async (_parent: any, args: ClassDeleteArgs, { db }: MyContext): Promise<Class> => {
     const deletedClass = await db.class.delete(args)
-    Cloudinary.removeImage(getPublicId(deletedClass.timetable as string))
+    Cloudinary.removeImage(getImagePublicId(deletedClass.timetable as string))
     return deletedClass
   }
 }

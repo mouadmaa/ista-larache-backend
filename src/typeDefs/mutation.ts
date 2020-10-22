@@ -3,10 +3,10 @@ import gql from 'graphql-tag'
 export const mutation = gql`
   type Mutation {
     # user
-    register(name: String!, email: String!, password: String!): User
-    login(email: String!, password: String!): User
-    logout: Boolean!
+    register(name: String!, email: String!, password: String!): User!
+    login(email: String!, password: String!): LoginResponse!
     deleteUser(where: UserWhereUniqueInput!): User!
+    logout: Boolean!
 
     # Formation
     createFormation(data: FormationCreateInput!): Formation!

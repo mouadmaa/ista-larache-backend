@@ -5,7 +5,7 @@ import slugify from 'slugify'
 
 import { MyContext } from '../context'
 import { Cloudinary } from '../services/cloudinary'
-import { getPublicId } from '../utils/getPublicId'
+import { getImagePublicId } from '../utils/getImagePublicId'
 
 interface ActivityMeta { count: number }
 interface ActivityCreateArgsWithFile extends ActivityCreateArgs { file?: string }
@@ -27,7 +27,7 @@ export const activityMutations = {
   updateActivity: async (_parent: any, args: ActivityUpdateArgsWithFile, { db }: MyContext): Promise<Activity> => {
     args.data.slug = slugify(args.data.title as string, { lower: true, strict: true })
     if (args.file) {
-      Cloudinary.removeImage(getPublicId(args.data.image as string))
+      Cloudinary.removeImage(getImagePublicId(args.data.image as string))
       args.data.image = await Cloudinary.uploadImage(args.file)
       delete args.file
     }
@@ -35,7 +35,7 @@ export const activityMutations = {
   },
   deleteActivity: async (_parent: any, args: ActivityDeleteArgs, { db }: MyContext): Promise<Activity> => {
     const deletedActivity = await db.activity.delete(args)
-    Cloudinary.removeImage(getPublicId(deletedActivity.image))
+    Cloudinary.removeImage(getImagePublicId(deletedActivity.image))
     return deletedActivity
   },
 }

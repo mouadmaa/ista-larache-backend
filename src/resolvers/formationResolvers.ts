@@ -4,13 +4,14 @@ import {
 } from '@prisma/client'
 
 import { MyContext } from '../context'
-import { getUser } from '../utils/getUser'
+import { TOKEN_NAME } from '../constants'
+import { getUserPayload } from '../utils/getUserPayload'
 
 export const formationQueries = {
   formation: (_parent: any, args: FindOneFormationArgs, { db }: MyContext): Promise<Formation | null> => db.formation.findOne(args),
   formations: (_parent: any, _args: any, { db }: MyContext): Promise<Formation[]> => db.formation.findMany(),
   teacherFormations: (_parent: any, _args: any, { db, request }: MyContext): Promise<Formation[]> => {
-    const teacherId = getUser(request)?.id
+    const teacherId = getUserPayload(request).userId
     return db.formation.findMany({ where: { classes: { some: { teacherId } } } })
   }
 }
@@ -26,12 +27,9 @@ export const formationRes = {
     return db.formation.findOne({ where: { id: parent.id } }).modules()
   },
   classes: async (parent: FormationWhereUniqueInput, _args: any, { request, db }: MyContext): Promise<Class[]> => {
-    if (request.cookies.token) {
-      const user = getUser(request)
-      if (user?.role === 'TEACHER') {
-        const formation = await db.formation.findOne({ where: { id: parent.id } })
-        return db.class.findMany({ where: { formationId: formation?.id, teacherId: user?.id } })
-      }
+    if (request.cookies[TOKEN_NAME]) {
+      const { userId, userRole } = getUserPayload(request)
+      if (userRole === 'TEACHER') return db.class.findMany({ where: { formationId: parent.id, teacherId: userId } })
     }
     return db.formation.findOne({ where: { id: parent.id } }).classes()
   },

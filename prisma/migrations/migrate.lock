@@ -1,3 +1,5 @@
 # Prisma Migrate lockfile v1
 
 20201018161701-init
+20201022143913-add-token-version-to-user-model
+20201022204701-remove-token-version-from-user-model

@@ -8,6 +8,11 @@ export const userType = gql`
     role: Role!
   }
 
+  type LoginResponse {
+    accessToken: String
+    user: User
+  }
+
   enum Role {
     ADMIN
     TEACHER

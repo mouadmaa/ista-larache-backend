@@ -40,8 +40,14 @@ export const activityType = gql`
     slug: String
   }
 
+  enum Sort {
+    asc
+    desc
+  }
+
   input ActivityOrderByInput {
     title: Sort
     date: Sort
   }
+
 `

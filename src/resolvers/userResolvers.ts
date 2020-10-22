@@ -1,18 +1,29 @@
 import { User, UserCreateInput, UserDeleteArgs, UserWhereInput } from '@prisma/client'
 import { hash, verify } from 'argon2'
-import { sign } from 'jsonwebtoken'
 
 import { __prod__ } from '../constants'
 import { MyContext } from '../context'
-import { getUser } from '../utils/getUser'
+import { getUserPayload } from '../utils/getUserPayload'
+import { createAccessToken, createRefreshToken, sendRefreshToken } from '../utils/createToken'
+
+interface LoginResponse {
+  accessToken: string
+  user: User
+}
 
 export const userQueries = {
-  me: (_parent: any, _args: any, { request }: MyContext): User | null => getUser(request),
-  users: (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => db.user.findMany(),
+  me: (_parent: any, _args: any, { request, db }: MyContext): Promise<User | null> => {
+    const { userId } = getUserPayload(request)
+    return db.user.findOne({ where: { id: userId } })
+  },
+  users: (_parent: any, _args: any, { db }: MyContext): Promise<User[]> => {
+    return db.user.findMany()
+  },
 }
 
 export const userMutations = {
-  register: async (_parent: any, { name, email, password }: UserCreateInput, { db }: MyContext): Promise<User> => {
+  register: async (_parent: any, args: UserCreateInput, { db }: MyContext): Promise<User> => {
+    const { name, email, password } = args
     const hashedPassword = await hash(password)
 
     const user = await db.user.create({
@@ -21,35 +32,22 @@ export const userMutations = {
 
     return user
   },
-  login: async (_parent: any, { email, password }: UserWhereInput, { response, db }: MyContext): Promise<User> => {
+  login: async (_parent: any, args: UserWhereInput, { response, db }: MyContext): Promise<LoginResponse> => {
+    const { email, password } = args
     const user = await db.user.findOne({ where: { email: email as string } })
     if (!user) throw new Error('email or password not valid')
 
     const validPassword = await verify(user.password, password as string)
     if (!validPassword) throw new Error('email or password not valid')
 
-    const expiresIn = 1000 * 60 * 60 * 24 * 365 * 10
-    const token = sign({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        role: user.role
-      }
-    }, process.env.JWT_SECRET!, { expiresIn })
-
-    response.cookie('token', token, {
-      expires: new Date(Date.now() + expiresIn),
-      secure: __prod__,
-      httpOnly: true,
-      sameSite: __prod__ ? 'none' : 'lax',
-    })
-
-    return user
+    sendRefreshToken(response, createRefreshToken(user))
+    return { accessToken: createAccessToken(user), user }
   },
   logout: (_parent: any, _args: any, { response }: MyContext): Boolean => {
-    response.cookie('token', '', { expires: new Date(0), httpOnly: true })
+    sendRefreshToken(response, '')
     return true
   },
-  deleteUser: (_parent: any, args: UserDeleteArgs, { db }: MyContext): Promise<User> => db.user.delete(args),
+  deleteUser: (_parent: any, args: UserDeleteArgs, { db }: MyContext): Promise<User> => {
+    return db.user.delete(args)
+  },
 }
