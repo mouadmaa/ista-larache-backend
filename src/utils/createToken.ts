@@ -19,8 +19,8 @@ export const createRefreshToken = (user: User) => {
 export const sendRefreshToken = (res: Response, token: string) => {
   res.cookie(TOKEN_NAME, token, {
     expires: new Date(Date.now() + 864000000),
-    httpOnly: true,
+    sameSite: __prod__ ? 'none' : 'lax',
     secure: __prod__,
-    sameSite: 'none',
+    httpOnly: true,
   })
 }
