@@ -17,5 +17,9 @@ export const createRefreshToken = (user: User) => {
 }
 
 export const sendRefreshToken = (res: Response, token: string) => {
-  res.cookie(TOKEN_NAME, token, { httpOnly: true, })
+  res.cookie(TOKEN_NAME, token, {
+    httpOnly: true,
+    secure: false,
+    sameSite: 'lax',
+  })
 }
