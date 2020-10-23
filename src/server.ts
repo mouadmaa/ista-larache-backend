@@ -33,7 +33,7 @@ server.start(
   {
     cors: false,
     bodyParserOptions: {
-      limit: process.env.BODY_PARSER_LIMIT,
+      limit: '3mb',
     },
     validationRules: [
       depthLimit(3)
